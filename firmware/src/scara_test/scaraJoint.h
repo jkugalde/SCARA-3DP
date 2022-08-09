@@ -5,10 +5,6 @@
 #include "AccelStepper.h"
 #include "Sensor.h"
 
-
-#define MICRO_STEPPING 4
-#define ACC 10000
-#define SPEED_CONSTANT 800// Speed base mutliplier for all joints.
 #define motorInterfaceType 1
 
 class scaraJoint{
@@ -17,16 +13,20 @@ class scaraJoint{
     double ratio;
     bool inverted;
     int homing_dir;
+    double aoffset;
     int offset;
-    long angle;
+    double angle;
     long position;
-    int jn_steppers;
     Sensor * sensor;
     long motor_speed;
     AccelStepper * motor;
-    double speed_multiplier =1.0;
+    double speed = 1.0;
+    double accel = 1.0;
+    int stepping = 1;
 
-    scaraJoint(double a_ratio,bool a_inverted,int a_homing_dir,int a_offset,double a_speed_multiplier);
+    scaraJoint(double a_ratio,bool a_inverted,int a_homing_dir,double a_offset,double a_speed, double a_accel, int a_stepping);
+
+    void setposangle(double angle_i);
 
     /**
      * @brief Creates a new accelstepper motor for the joint.
@@ -41,6 +41,8 @@ class scaraJoint{
      * @param pin 
      */
     void create_sensor(int pin);
+
+    int give_offset();
     /**
      * @brief Prints to serial a string representation of the joint
      * 
@@ -56,12 +58,11 @@ class scaraJoint{
      * 
      * @param val 
      */
-    void add_angle(long val);
-    /**
-     * @brief Statrs the homing proces for the joint.
-     * 
-     */
-    void launch_home();
+    void add_angle(double val);
+
+
+    void setMaxSpeed(double b_speed);
+
     /**
      * @brief Runs the homing procedure of the joint.
      * 
