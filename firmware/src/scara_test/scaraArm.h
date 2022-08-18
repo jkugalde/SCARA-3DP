@@ -23,15 +23,26 @@ class scaraArm{
     bool e_state;
     double j1_l;
     double j2_l;
+    double j3_l;
+    double offsetx;
+    double offsety;
     double j1pos[2]={0,0};
     double j2pos[2]={0,0};
     double radfactor = 3.1459/180;
+    double max_r;
+    double min_r;
+    double a_angle_min;
+    double a_angle_max;
+    double b_angle_min;
+    double b_angle_max;
 
-    scaraArm(double j1l, double j2l);
+    scaraArm(double j1l, double j2l, double j3l, double minr);
 
     String where();
 
-    void setposangle(double angle_i);
+    void setposangle(double angle_i, double angle_j);
+
+    void setminmaxangles(double amin, double amax, double bmin, double bmax);
 
     void goTo(double xpos, double ypos, double zpos);
 
@@ -39,13 +50,13 @@ class scaraArm{
 
     void registerJoint(scaraJoint * ajoint, scaraJoint * bjoint, scaraJoint * zjoint);
 
-    void createGripper(int epin);
+    void createGripper(int epin, double of_x, double of_y, double of_z);
 
     void run();
 
-    void goToAngle(double angleA=0, double angleB=0, double zdis=0);
+    void goToAngle(double angleA, double angleB, double zdis);
 
-    void goToAngleRel(double angleA=0, double angleB=0, double zdis=0);
+    void goToAngleRel(double angleA, double angleB, double zdis);
 
     void setSpeeds(double speeda, double speedb, double speedz);
 

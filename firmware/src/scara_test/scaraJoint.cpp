@@ -11,7 +11,7 @@ scaraJoint::scaraJoint(double a_ratio,bool a_inverted,int a_homing_dir,double a_
     inverted = a_inverted;
     homing_dir = a_homing_dir;
     angle = 0;
-    position =0;
+    position = 0;
     speed = a_speed;
     accel = a_accel;
     stepping = a_stepping;
