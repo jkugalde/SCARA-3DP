@@ -28,7 +28,6 @@ scaraArm::scaraArm(double j1l, double j2l, double j3l, double minr){
     offsetx=0;
     offsety=0;
 
-
     max_r = (j1_l+j2_l)*(j1_l+j2_l);
     min_r = minr*minr;
 

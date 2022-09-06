@@ -48,17 +48,17 @@ const int EMpin = 50;
 String instructs[15] = {"G1 X0 Y300","G1 Z-33","M07","G1 Z0","G1 X-200 Y200","G1 Z-33","M09","G1 Z0","G1 X0 Y250","G1 Z-34","M07","G1 Z0","G1 X-300 Y100","G1 Z-35","M09"};
 String buff[3];
 
-int ninst = 3;
+int ninst = 15;
 int nsets = 5;
 int counter = 0;
-int line = ninst;
+int line = 0;
 
 void setup() {
   
   arm = new scaraArm(j1l,j2l,j3l,minr);
   j1 = new scaraJoint(3.75,true,1,-88,500.0,2000.0,4);
   j2 = new scaraJoint(3.75,true,-1,154,500.0,2000.0,4);
-  j3 = new scaraJoint(5.6,false,1,0,500.0,2000.0,4);
+  j3 = new scaraJoint(5.6,false,1,0,4000.0,10000.0,4);
   j1->create_motor(stepPin1,dirPin1);
   j2->create_motor(stepPin2,dirPin2);
   j3->create_motor(stepPin3,dirPin3);
@@ -85,38 +85,22 @@ void setup() {
 
 void loop() {
 
-  for(int i=0;i<nsets;i++){
-
-  for(int j=0;j<ninst;j++){
-
-   
-  }
-    
-  }
-
 if(arm->isReady()){
 
-//if(msg=="G28"){
-// arm->setposangle(90.0,0.0);
-//}
-//
-//if(Serial.available()>0){
-//msg=Serial.readString();  
-//arm->gcode(msg);  
-//}
+if(msg=="G28"){
+ arm->setposangle(90.0,0.0);
+}
 
-  if(line==ninst && counter<nsets){
-  buff[0]=instructs[counter*3];
-  buff[1]=instructs[counter*3+1];
-  buff[2]=instructs[counter*3+2];
-  line=0;
-  counter=counter+1;
-  
-  }
-  else if(counter<=nsets && line<ninst){
-  arm->gcode(buff[line]);
-  line=line+1;
-  }
+if(Serial.available()>0){
+msg=Serial.readString();  
+arm->gcode(msg);  
+}
+
+//  if(line<ninst){
+//  msg=instructs[line];
+//  arm->gcode(msg);
+//  line=line+1;
+//  }
 
   arm->run();
 }

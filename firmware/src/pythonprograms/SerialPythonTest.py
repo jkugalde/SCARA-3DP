@@ -2,24 +2,12 @@
 import serial
 import time
 arduino = serial.Serial(port='COM6', baudrate=115200, timeout=.1)
-
-f = open("testfile.gcode", "r")
-
 def write_read(x):
-
     arduino.write(bytes(x, 'utf-8'))
-    time.sleep(1)
-    data=arduino.readline()
-    while data!="next" :
-        data = arduino.readline()
-        print(data)
+    time.sleep(0.5)
+    data = arduino.readline()
     return data
-
 while True:
-
-    for lain in f:
-        print(lain) # printing the value
-        write_read(lain)
-
-    f.close()
-    break
+    num = input("Enter a number: ") # Taking input from user
+    value = write_read(num)
+    print(value) # printing the value

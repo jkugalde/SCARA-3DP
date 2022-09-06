@@ -35,7 +35,7 @@ void scaraJoint::home(){
     int tolerance = 7;
 
     add_angle(1000*homing_dir);
-    setMaxSpeed(1.0);
+    //setMaxSpeed(1.0);
 
     while(true){
 
@@ -60,7 +60,7 @@ void scaraJoint::home(){
 
     }
 
-    setMaxSpeed(1.0);
+    //setMaxSpeed(1.0);
 
 }
 
