@@ -77,51 +77,23 @@ void scaraJoint::create_motor(int step_pin,int dir_pin){
 
  void scaraJoint::motor_setup(){
 
-         //motor->invertDirPin(inverted);
          motor->setCurrentPosition(0);
          motor->setSpeed(speed);
          motor->setAcceleration(accel);
          motor->setPinsInverted(inverted,0,0);    
-         motor->setMaxSpeed(speed);   
-    
+         motor->setMaxSpeed(speed);      
 
  }
+
 void scaraJoint::create_sensor(int pin){
     sensor = new Sensor(pin);
  }
-
-void scaraJoint::show(){
-    Serial.print("Joint ");
-    Serial.print(index);
-    Serial.print(" Motor speed ");
-    Serial.print(" Joint ratio: ");
-    Serial.print(ratio);
-    Serial.println("");
-
-}
 
 void scaraJoint::add_angle(double val){
     angle=val;
     position = (long)((ratio*val/1.8*stepping));
         motor->moveTo(position);
     
-}
-
-void scaraJoint::set_offset(long new_offset){
-    offset = new_offset;
-}
-
-int scaraJoint::give_offset(){
-
-return offset;
-
-}
-
-void scaraJoint::show_offset(){
-    Serial.print("Joint ");
-    Serial.print(index);
-    Serial.print(" current offset: ");
-    Serial.print(offset);
 }
 
 void scaraJoint::run(){

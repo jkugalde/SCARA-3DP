@@ -5,11 +5,12 @@
 #include "AccelStepper.h"
 #include "Sensor.h"
 
-#define motorInterfaceType 1
+#define motorInterfaceType 1 // drv8825 or a4988 pololu like
 
 class scaraJoint{
+
   public:
-    int index;
+
     double ratio;
     bool inverted;
     int homing_dir;
@@ -24,7 +25,25 @@ class scaraJoint{
     double accel = 1.0;
     int stepping = 1;
 
+    /**
+     * @brief creates joint 
+     * 
+     * @param a_ratio transmission ratio
+     * @param a_inverted inverts movement direction
+     * @param a_homing_dir direction for homing
+     * @param a_offset offset from home position to initial position
+     * @param a_speed max speed
+     * @param a_accel acceleration
+     * @param a_stepping set microstepping^{-1}
+     */
+
     scaraJoint(double a_ratio,bool a_inverted,int a_homing_dir,double a_offset,double a_speed, double a_accel, int a_stepping);
+
+    /**
+     * @brief assigns a value to the current position
+     * 
+     * @param angle_i in degrees
+     */
 
     void setposangle(double angle_i);
 
@@ -34,6 +53,7 @@ class scaraJoint{
      * @param step_pin step pin of the new motor
      * @param dir_pin direction pin of the new motor
      */
+
     void create_motor(int step_pin,int dir_pin);
     /**
      * @brief Creates a new sensor for the joint
@@ -42,16 +62,11 @@ class scaraJoint{
      */
     void create_sensor(int pin);
 
-    int give_offset();
     /**
      * @brief Prints to serial a string representation of the joint
      * 
      */
-    void show();
-    /**
-     * @brief Runs the comands to setup the motors of the joint.
-     * 
-     */
+
     void motor_setup();
     /**
      * @brief Adds an angle to the angle variable, and updates it's position in steps.
@@ -59,7 +74,6 @@ class scaraJoint{
      * @param val 
      */
     void add_angle(double val);
-
 
     void setMaxSpeed(double b_speed);
 
@@ -74,12 +88,6 @@ class scaraJoint{
      * 
      * @param new_offset new value for offset
      */
-    void set_offset(long new_offset);
-    /**
-     * @brief prints the offset of the joint.
-     * 
-     */
-    void show_offset();
 
     void run();
 
